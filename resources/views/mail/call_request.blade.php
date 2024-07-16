@@ -8,7 +8,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Call Request</h1>
-    <p>Call Request Created...</p>
+    <h1>Call Request Created</h1>
+    @isset($data)
+        <p>Name: {{$data['name']}}</p>
+        <p>Surname: {{$data['surname']}}</p>
+        <p>Phone: {{$data['phone']}}</p>
+        @isset($data['service_type'])
+            <p>Service Type: {{$data['service_type']}}</p>
+        @endisset
+        @isset($data['comment'])
+            <p>Comment: {{$data['comment']}}</p>
+        @endisset
+        <p>Language: {{$lang}}</p>
+    @endisset
 </body>
 </html>

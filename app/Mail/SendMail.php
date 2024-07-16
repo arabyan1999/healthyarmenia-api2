@@ -12,15 +12,17 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
 
     private $data;
+    private $lang;
 
-    /**
+    /** 
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $lang)
     {
         $this->data = $data;
+        $this->lang = $lang;
     }
 
 
@@ -31,7 +33,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.call_request', ['data' => $this->data])
+        return $this->view('mail.call_request', ['data' => $this->data, 'lang' => $this->lang])
                     ->subject('Call Request From TNS');
     }
 }

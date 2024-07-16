@@ -60,9 +60,11 @@ class BaseController extends Controller
         }
     }
 
-    public function get_product($key) {
+    public function get_product(Request $request) {
         try {
-            $product = Products::where('key', $key)->get();
+            $lang = $request->all()['lang'];
+            $key = $request->all()['key'];
+            $product = Products::where('key', $key)->where('lang', $lang)->get();
 
             if($product) {
                 return [ 'data' => $product ];
@@ -76,9 +78,11 @@ class BaseController extends Controller
         }
     }
 
-    public function get_disease($key) {
+    public function get_disease(Request $request) {
         try {
-            $disease = Diseases::where('key', $key)->get();;
+            $lang = $request->all()['lang'];
+            $key = $request->all()['key'];
+            $disease = Diseases::where('key', $key)->where('lang', $lang)->get();
 
             if($disease) {
                 return [ 'data' => $disease ];
@@ -109,12 +113,13 @@ class BaseController extends Controller
 
     public function create_call_request(Request $request) {
         try {
-//            $data = $request->all();
-            $create = CallRequests::create($request->all());
+            $data = $request->all()['data'];
+            $lang = $request->all()['lang'];
+            $create = CallRequests::create($data);
 
             if($create) {
-//                Mail::to('tnsscareer@gmail.com')
-//                    ->send(new SendMail($data));
+                Mail::to('tnsscareer@gmail.com')
+                    ->send(new SendMail($data, $lang));
                 return [ 'message' => 'Success' ];
             } else {
                 return [ 'message' => 'Internal Server Error' ];

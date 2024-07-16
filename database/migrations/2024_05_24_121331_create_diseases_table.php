@@ -17,6 +17,7 @@ class CreateDiseasesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('key');
+            $table->string('p_key')->nullable();
             $table->string('category')->nullable();
             $table->text('symptoms')->nullable();
             $table->text('diagnoses')->nullable();
